@@ -3,86 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bansuri Learning & Scales</title>
+    <title>Bansuri Classes</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f5f5dc;
-            margin: 0;
-            padding: 20px;
-        }
-        h1, h2 {
-            color: #8b4513;
-        }
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background: white;
-        }
-        th, td {
-            border: 1px solid #8b4513;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #deb887;
-        }
-        .info-box {
-            background: white;
-            padding: 20px;
-            margin: 20px auto;
-            width: 80%;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        .scale-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #8b4513;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; }
+        header { background: #2E8B57; color: white; padding: 15px; }
+        section { padding: 20px; }
+        .form-container { display: flex; justify-content: center; }
+        form { background: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); width: 300px; text-align: left; }
+        label, input { display: block; width: 100%; margin-bottom: 10px; }
+        button { width: 100%; background: #2E8B57; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #256845; }
+        footer { background: #2E8B57; color: white; padding: 10px; position: absolute; width: 100%; bottom: 0; }
     </style>
 </head>
 <body>
-    <h1>Learn Bansuri - The Indian Bamboo Flute</h1>
-    <div class="info-box">
-        <h2>Online Bansuri Classes</h2>
-        <p><strong>Duration:</strong> 3 months (24 classes)</p>
-        <p><strong>Class Schedule:</strong> Every Sunday (3:30 PM - 4:15 PM IST) with a follow-up session on the following Saturday.</p>
-        <p><strong>Cost:</strong> INR 699 (Flute to be purchased by the student)</p>
-        <p><strong>Join now:</strong> <a href="https://chat.whatsapp.com/LOtTbM9JUFpKMpBD9WQJuF" target="_blank">WhatsApp Group</a></p>
-    </div>
+    <header>
+        <h1>Bansuri Online Classes</h1>
+        <p>Learn the soulful art of the Indian bamboo flute</p>
+    </header>
     
-    <h2>Bansuri Scales and Frequencies</h2>
-    <p>Different Bansuri scales produce different tones. Explore their frequencies below:</p>
-    <table>
-        <tr>
-            <th>Flute Scale</th>
-            <th>Sa (Shadja) Frequency</th>
-        </tr>
-        <tr><td>G#</td><td>415.30 Hz</td></tr>
-        <tr><td>A</td><td>440.00 Hz</td></tr>
-        <tr><td>B</td><td>493.88 Hz</td></tr>
-        <tr><td>C</td><td>261.63 Hz</td></tr>
-        <tr><td>D</td><td>293.66 Hz</td></tr>
-        <tr><td>E</td><td>329.63 Hz</td></tr>
-        <tr><td>F</td><td>349.23 Hz</td></tr>
-    </table>
+    <section id="course-details">
+        <h2>Course Details</h2>
+        <p>✅ 24 classes (3 months)</p>
+        <p>✅ One class per week + follow-up session</p>
+        <p>✅ 🎯 Early Bird Offer: INR 699 (Limited time!)</p>
+        <p>✅ Regular Price: INR 3,699 (Enroll now to save!)</p>
+    </section>
     
-    <button class="scale-button" onclick="playSample()">Hear Sample Sound</button>
-    <p id="audioMessage"></p>
+    <section id="registration">
+        <h2>Register Now</h2>
+        <div class="form-container">
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </section>
     
-    <script>
-        function playSample() {
-            document.getElementById("audioMessage").innerText = "Audio samples coming soon!";
-            alert("Audio samples coming soon!");
-        }
-    </script>
+    <section id="payment">
+        <h2>Make a Payment</h2>
+        <p>Secure your spot by paying the course fee.</p>
+        <button>Pay Now</button>
+    </section>
+    
+    <footer>
+        <p>📞 Interested? Contact me at: +91 9945994003</p>
+        <p>📲 Once you decide to join, use this link to enter the WhatsApp group: <a href="https://chat.whatsapp.com/LOtTbM9JUFpKMpBD9WQJuF" target="_blank">Join WhatsApp Group</a></p>
+    </footer>
 </body>
 </html>
+
 
