@@ -27,6 +27,39 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #2E8B57;
+            color: white;
+            margin: 5px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .tab:hover {
+            background: #1e5e3d;
+        }
+        .tab-content {
+            display: none;
+            margin-top: 20px;
+        }
+        .active {
+            display: block;
+        }
+        .image-container {
+            margin-top: 15px;
+        }
+        .image-container img {
+            width: 70%;
+            max-width: 400px;
+            border-radius: 5px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
         footer {
             background: #2E8B57;
             color: white;
@@ -36,6 +69,12 @@
             margin-top: 20px;
         }
     </style>
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
 </head>
 <body>
     <header>Bansuri Online Classes</header>
@@ -48,9 +87,36 @@
         <p>✅ One class per week + follow-up session</p>
         <p>🎯 Early Bird Offer: INR 699 (Limited time!)</p>
         <p>✅ Regular Price: INR 3,699 (Enroll now to save!)</p>
-        <p>📞 Interested? Contact me at: +91 9945994003</p>
-        <p>📲 Once you decide to join, use this link to enter the WhatsApp group: <a href="https://chat.whatsapp.com/LOtTbM9JUFpKMpBD9WQJuF" target="_blank">Click Here</a></p>
-        <p>⏳ Early Bird Offer valid for a limited time – enroll now and start your musical journey!</p>
+    </div>
+    
+    <div class="tabs">
+        <div class="tab" onclick="showTab('bansuri')">Bansuri</div>
+        <div class="tab" onclick="showTab('tabla')">Tabla</div>
+        <div class="tab" onclick="showTab('tanpura')">Tanpura</div>
+    </div>
+    
+    <div id="bansuri" class="tab-content active">
+        <h2>Bansuri (Indian Bamboo Flute)</h2>
+        <p>The Bansuri is a melodious wind instrument used in Indian classical and folk music. It has a deep connection with Indian spirituality and culture.</p>
+        <div class="image-container">
+            <img src="flute.png" alt="Bansuri Flute">
+        </div>
+    </div>
+    
+    <div id="tabla" class="tab-content">
+        <h2>Tabla</h2>
+        <p>The Tabla is a pair of drums used in Indian classical music. It provides rhythm and is essential for accompaniment in traditional performances.</p>
+        <div class="image-container">
+            <img src="tabla.png" alt="Tabla">
+        </div>
+    </div>
+    
+    <div id="tanpura" class="tab-content">
+        <h2>Tanpura</h2>
+        <p>The Tanpura is a stringed instrument that provides a continuous harmonic drone in Indian classical music, setting the tonal atmosphere for performances.</p>
+        <div class="image-container">
+            <img src="tanpura.png" alt="Tanpura">
+        </div>
     </div>
     
     <footer>
