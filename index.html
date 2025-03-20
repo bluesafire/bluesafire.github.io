@@ -62,6 +62,9 @@
         .bansuri { color: darkblue; }
         .tabla { color: darkred; }
         .tanpura { color: darkgreen; }
+        .voice {color:burlywood}
+        .meditation {color:rgb(48, 148, 151)}
+        
     </style>
     <script>
         function showTab(tabId) {
@@ -84,6 +87,7 @@
     </div>
     
     <div class="tabs">
+        <div class="tab" onclick="showTab('meditation')">Meditation</div>
         <div class="tab" onclick="showTab('bansuri')">Bansuri</div>
         <div class="tab" onclick="showTab('tabla')">Tabla</div>
         <div class="tab" onclick="showTab('tanpura')">Tanpura</div>
@@ -91,7 +95,25 @@
         <div class="tab" onclick="showTab('voice')">Voice</div>
     </div>
     
-    <div id="bansuri" class="tab-content active description bansuri">
+    <div id="meditation" class="tab-content active description meditation">
+        <h2>Meditation for Learning the Bansuri</h2>
+        <p>Meditation is essential for learning the <strong>Bansuri (Indian bamboo flute)</strong> </p>
+        <ul>
+            <br><strong>Increases Patience & Discipline:</strong> Cultivates persistence in practice
+            <br><strong>Enhances Breath Control:</strong> Develops lung capacity for sustained notes
+            <br><strong>Improves Focus & Attention:</strong> Helps stay present while playing melodies
+            <br><strong>Reduces Stress & Performance Anxiety:</strong> Calms the mind for better playing
+            <br><strong>Deepens Emotional Connection to Music:</strong> Enhances expression and soulfulness
+            <br><strong>Boosts Musical Creativity & Improvisation:</strong> Encourages deeper raga exploration
+        </ul>
+        <p>By practicing even <strong>10-15 minutes of meditation daily</strong>, you can improve your ability to play the Bansuri with greater ease and joy.</p>
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/inpok4MKVLM?si=SfkoEtM1Qu1K7IcO&amp;start=35" 
+        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+        gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    <div id="bansuri" class="tab-content description bansuri">
         <h2>Bansuri (Indian Bamboo Flute)</h2>
         <p>The Bansuri is a melodious wind instrument used in Indian classical and folk music. <br>
             It has a deep connection with Indian spirituality and culture.</p>
