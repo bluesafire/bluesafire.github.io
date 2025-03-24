@@ -79,8 +79,23 @@
         .singing {color:burlywood}
         .meditation {color:rgb(48, 148, 151)}
         .way2go {color:darkgoldenrod}
+
+        .buy-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 15px;
+            background-color: #ff9800;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .buy-button:hover {
+            background-color: #e68900;
+        }
         
     </style>
+    
     <script>
         function showTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -101,7 +116,11 @@
             <p>🎯 Early Bird Offer: Full Course INR 699 (Limited time!)</p>
         </div>
         <p>✅ Regular Price: INR 3,699 (Enroll now to save!)</p>
-    </div>
+        
+        <h2><strong>Buy Your Flute Here</strong></h2>
+        <a href="https://amzn.to/4iVazjU" target="_blank" class="buy-button"> Bamboo Flute Scale C Sharp </a>
+        <a href="https://amzn.to/4bZNASq" target="_blank" class="buy-button"> PVC Fiber Flute Scale G Sharp</a>
+        </div>
     
     <div class="tabs">
         <div class="tab" onclick="showTab('meditation')">Meditation</div>
