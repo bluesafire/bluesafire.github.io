@@ -102,6 +102,15 @@
             document.getElementById(tabId).classList.add('active');
         }
     </script>
+    
+    <script>
+        function shareOnWhatsApp() {
+            var url = "https://playbansuri.com";
+            var text = "Check out this amazing Bansuri learning Course: ";
+            var whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text + url);
+            window.open(whatsappUrl, "_blank");
+    }
+    </script>
 </head>
 <body>
     <header>Bansuri Online Classes</header>
@@ -109,6 +118,13 @@
     <div class="container">
         <h2>A Warm Welcome to Your Bansuri Learning Journey!</h2>
         <p>Learn to play the Bansuri with our structured, beginner-friendly course.</p>
+        <button onclick="shareOnWhatsApp()" style="background-color: transparent; border: none; cursor: pointer;">
+            <table border="0" cellspacing="0" cellpadding="5" align="center">
+                <tr><td><strong>Share on WhatsApp</strong></td>
+                <td><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="40" height="40"></td></tr>
+            </table>
+                  
+        </button>
         <p>🎵 Course Details:</p>
         <p>✅ 24 classes (3 months)</p>
         <p>✅ One class per week + follow-up session</p>
@@ -116,7 +132,7 @@
             <p>🎯 Early Bird Offer: Full Course INR 699 (Limited time!)</p>
         </div>
         <p>✅ Regular Price: INR 3,699 (Enroll now to save!)</p>
-        
+               
         <h2><strong>Buy Your Flute Here</strong></h2>
         <table border="0" cellspacing="0" cellpadding="5" align="center">
             <tr><a href="https://amzn.to/4iVDGmU" target="_blank" class="buy-button"> Brass Vertical Blow Scale C</a></tr>
