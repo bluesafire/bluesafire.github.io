@@ -331,7 +331,96 @@
         title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
         gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>      
     </div>
-   
+    <canvas id="notesCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+    <audio id="noteSound" src="bansuri-note.mp3" preload="auto"></audio>
+    
+    <script>
+        const canvas = document.getElementById("notesCanvas");
+        const ctx = canvas.getContext("2d");
+        const audio = document.getElementById("noteSound");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const notes = ['Sa', 'Re', 'Ga', 'Ma', 'Pa', 'Dha', 'Ni', 'Sa̱', 'Re̱', 'Ga̱', 'Ma̱', 'Pa̱', 'Dha̱', 'Ni̱', 'Sá', 'Ré', 'Gá', 'Má', 'Pá', 'Dhá', 'Ní'];
+        const noteObjects = [];
+
+        class Note {
+            constructor(x, y, speed, size, text) {
+                this.x = x;
+                this.y = y;
+                this.speedX = (Math.random() - 0.5) * speed;
+                this.speedY = (Math.random() - 0.5) * speed;
+                this.size = size;
+                this.text = text;
+                this.color = `hsl(${Math.random() * 360}, 80%, 60%)`;
+            }
+
+            move() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.font = `${this.size}px Arial`;
+                ctx.fillStyle = this.color;
+                ctx.fillText(this.text, this.x, this.y);
+            }
+
+            playSound() {
+                audio.currentTime = 0;
+                audio.play();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < 20; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const speed = Math.random() * 2 + 1;
+                const size = Math.random() * 40 + 20;
+                const text = notes[Math.floor(Math.random() * notes.length)];
+                const note = new Note(x, y, speed, size, text);
+                noteObjects.push(note);
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            noteObjects.forEach(note => {
+                note.move();
+                note.draw();
+                if (Math.random() < 0.01) {
+                    note.playSound();
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        init();
+    </script>
+    <audio id="noteSound" src="bansuri-note.mp3" autoplay loop></audio>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const audio = document.getElementById("noteSound");
+    
+            // Try to play audio with a slight delay
+            setTimeout(() => {
+                audio.muted = false; // Unmute the audio
+                audio.play().catch(error => console.log("Autoplay failed:", error));
+            }, 500);
+        });
+    </script>
+    
 
     <footer>
         <p>📞 Interested? Contact: +91 9945994003</p>
