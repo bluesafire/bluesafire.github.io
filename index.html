@@ -409,18 +409,19 @@
     </script>
     <audio id="noteSound" src="bansuri-note.mp3" autoplay loop></audio>
 
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            const audio = document.getElementById("noteSound");
-    
-            // Try to play audio with a slight delay
-            setTimeout(() => {
-                audio.muted = false; // Unmute the audio
-                audio.play().catch(error => console.log("Autoplay failed:", error));
-            }, 500);
-        });
-    </script>
-    
+    <audio id="noteSound" src="bansuri-note.mp3" autoplay loop muted></audio>
+
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const audio = document.getElementById("noteSound");
+
+        setTimeout(() => {
+            audio.muted = false;  // Unmute after autoplay starts
+            audio.play().catch(error => console.log("Autoplay blocked:", error));
+        }, 500);
+    });
+</script>
+
 
     <footer>
         <p>📞 Interested? Contact: +91 9945994003</p>
