@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teen Taal 110 BPM</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f9f9f9;
+    }
+
+    #audioTab {
+      text-align: center;
+      padding: 5vw;
+      max-width: 90%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      background: white;
+      border-radius: 12px;
+    }
+
+    h3 {
+      font-size: 5vw;
+      margin-bottom: 4vw;
+    }
+
+    #playButton {
+      padding: 3vw 6vw;
+      font-size: 4vw;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 2vw;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #playButton:hover {
+      background-color: #0056b3;
+    }
+
+    @media (min-width: 600px) {
+      h3 {
+        font-size: 24px;
+      }
+
+      #playButton {
+        font-size: 18px;
+        padding: 10px 20px;
+        border-radius: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="audioTab">
+    <h3>Teen Taal 110 BPM</h3>
+    <button id="playButton" onclick="toggleAudio()">Play</button>
+    <audio id="myAudio" src="110-a-scale-teentaal.mp3"></audio>
+  </div>
+
+  <script>
+    const audio = document.getElementById("myAudio");
+    const button = document.getElementById("playButton");
+
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play();
+        button.textContent = "Pause";
+      } else {
+        audio.pause();
+        button.textContent = "Play";
+      }
+    }
+
+    audio.addEventListener("ended", () => {
+      button.textContent = "Play";
+    });
+  </script>
+
+</body>
+</html>
