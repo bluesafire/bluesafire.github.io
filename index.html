@@ -73,7 +73,7 @@
         
         <p>Practicing <strong>10-15 minutes of meditation daily</strong>,improves ability to play the Bansuri with greater ease and joy.</p>
 
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/inpok4MKVLM?si=SfkoEtM1Qu1K7IcO&amp;start=35" 
+        <iframe width="260" height="260" src="https://www.youtube.com/embed/inpok4MKVLM?si=SfkoEtM1Qu1K7IcO&amp;start=35" 
         title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
         gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
@@ -93,7 +93,7 @@
         </p>
         <h2>Tabla ( Rhythm - Taal ) </h2>
         <img src="tabla.png" alt="Octave Logo" width="600" height="315">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/gQWuvj4TFxI?si=mHQbtTcCRQAMrPEA&amp;start=17" 
+        <iframe width="260" height="260" src="https://www.youtube.com/embed/gQWuvj4TFxI?si=mHQbtTcCRQAMrPEA&amp;start=17" 
         title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; 
         picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
@@ -103,10 +103,9 @@
         <p>The Tanpura is a stringed instrument that provides a continuous harmonic drone in Indian classical music,
         <br> setting the tonal atmosphere for performances.</p>
         <img src="tanpura.png" alt="Octave Logo" width="600" height="315">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/rHbsT-ZVM2Q?si=hF7EF-EKwyzGIKVe" 
+        <iframe width="260" height="260" src="https://www.youtube.com/embed/rHbsT-ZVM2Q?si=hF7EF-EKwyzGIKVe" 
         title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
         gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
     </div>
     
     <div id="scale" class="tab-content description scale">
@@ -217,7 +216,7 @@
     <div id="singing" class="tab-content description singing">
         <h2>Singing is as Important as Playing Instrument</h2>
         <p>Scale practice with Teen Taal at 120 BPM.</p>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/x3-L91DbWZY?si=sSJrpb9mubkJRHWI" 
+            <iframe width="260" height="260" src="https://www.youtube.com/embed/x3-L91DbWZY?si=sSJrpb9mubkJRHWI" 
             title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
             gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
@@ -231,101 +230,11 @@
         <p> Let’s make learning fun, effortless, and rewarding together. 😊🎵</p>
         
         
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/bDXLF1IEo54?si=ejJJ9dRIhNZCzbPk" 
+        <iframe width="260" height="260" src="https://www.youtube.com/embed/bDXLF1IEo54?si=ejJJ9dRIhNZCzbPk" 
         title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
         gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>      
     </div>
-    <canvas id="notesCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
-    <audio id="noteSound" src="bansuri-note.mp3" preload="auto"></audio>
     
-    <script>
-        const canvas = document.getElementById("notesCanvas");
-        const ctx = canvas.getContext("2d");
-        const audio = document.getElementById("noteSound");
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const notes = ['Sa', 'Re', 'Ga', 'Ma', 'Pa', 'Dha', 'Ni', 'Sa̱', 'Re̱', 'Ga̱', 'Ma̱', 'Pa̱', 'Dha̱', 'Ni̱', 'Sá', 'Ré', 'Gá', 'Má', 'Pá', 'Dhá', 'Ní'];
-        const noteObjects = [];
-
-        class Note {
-            constructor(x, y, speed, size, text) {
-                this.x = x;
-                this.y = y;
-                this.speedX = (Math.random() - 0.5) * speed;
-                this.speedY = (Math.random() - 0.5) * speed;
-                this.size = size * 0.50;
-                this.text = text;
-                this.color = `hsl(${Math.random() * 360}, 80%, 60%)`;
-            }
-
-            move() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-
-            draw() {
-                ctx.font = `${this.size}px Arial`;
-                ctx.fillStyle = this.color;
-                ctx.fillText(this.text, this.x, this.y);
-            }
-
-            playSound() {
-                audio.currentTime = 0;
-                audio.play();
-            }
-        }
-
-        function init() {
-            for (let i = 0; i < 20; i++) {
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                const speed = Math.random() * 2 + 1;
-                const size = Math.random() * 40 + 20;
-                const text = notes[Math.floor(Math.random() * notes.length)];
-                const note = new Note(x, y, speed, size, text);
-                noteObjects.push(note);
-            }
-            animate();
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            noteObjects.forEach(note => {
-                note.move();
-                note.draw();
-                if (Math.random() < 0.01) {
-                    note.playSound();
-                }
-            });
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener("resize", () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        init();
-    </script>
-    <audio id="noteSound" src="bansuri-note.mp3" autoplay loop></audio>
-
-    <audio id="noteSound" src="bansuri-note.mp3" autoplay loop muted></audio>
-
-<script>
-    window.addEventListener("DOMContentLoaded", () => {
-        const audio = document.getElementById("noteSound");
-
-        setTimeout(() => {
-            audio.muted = false;  // Unmute after autoplay starts
-            audio.play().catch(error => console.log("Autoplay blocked:", error));
-        }, 500);
-    });
-</script>
-
 
     <footer>
         <p>📞 Interested? Contact: +91 9945994003</p>
