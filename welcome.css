@@ -1,0 +1,40 @@
+<style>
+        body {
+          margin: 0;
+          font-family: 'Georgia', serif;
+          background: url('bansuri-background.jpg') no-repeat center center/cover;
+          color: #4b2e2e;
+        }
+    
+        .hero {
+          height: 65vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(255, 255, 240, 0.85); /* ivory overlay for readability */
+          text-align: center;
+          padding: 2rem;
+          animation: fadeIn 2s ease-in-out;
+        }
+    
+        .hero h1 {
+          font-size: 2.5rem;
+          margin-bottom: 1rem;
+        }
+    
+        .highlight {
+          color: #d4af37;
+        }
+    
+        .subtext {
+          color: #8b4513;
+          font-size: 1.25rem;
+          margin-top: 0.5rem;
+        }
+    
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      </style>
