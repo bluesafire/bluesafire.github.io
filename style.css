@@ -116,7 +116,9 @@ table {
 }
 
 th, td {
-    border: 1px solid #ddd;
+    border: none;
+    box-shadow: none;
+    outline: none;
     padding: 10px;
     text-align: center;
 }
