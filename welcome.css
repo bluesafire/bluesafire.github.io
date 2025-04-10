@@ -7,7 +7,7 @@
         }
     
         .hero {
-          height: 65vh;
+          height: 55vh;
           display: flex;
           flex-direction: column;
           justify-content: center;
