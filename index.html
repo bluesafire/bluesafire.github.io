@@ -10,25 +10,24 @@
     
     <script>
         function showTab(tabId) {
-    const content = document.getElementById(tabId);
-    const tab = document.querySelector(`.tab[data-target="${tabId}"]`);
+        const content = document.getElementById(tabId);
+        const tab = document.querySelector(`.tab[data-target="${tabId}"]`);
 
-    const isActive = content.classList.contains('active');
+        const isActive = content.classList.contains('active');
 
-    // Clear all tabs and content first
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        // Clear all tabs and content first
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-    // If not already active, activate it
-    if (!isActive) {
-        content.classList.add('active');
-        tab.classList.add('active');
-    }
-}
-  </script>
-
+            // If not already active, activate it
+            if (!isActive) {
+                content.classList.add('active');
+                tab.classList.add('active');
+            }
+        }
+        
     </script>
-
+ 
 </head>
 <body>
     <header>Bansuri Online Classes</header>
@@ -268,7 +267,13 @@
     
 
     <footer>
-    <p>&copy; <span id="year"></span> <strong>Play Bansuri</strong>. All rights reserved.</p>
+        <p style="text-align: center; font-size: 14px; ">
+            &copy; <span id="year"></span> Play Bansuri. All rights reserved.
+          </p>
+          
+          <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+          </script>
        
     </footer>
 </body>
