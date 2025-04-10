@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Bansuri Classes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
     
@@ -12,13 +13,10 @@
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
         }
-    
-        function shareOnWhatsApp() {
-            var url = "https://playbansuri.com";
-            var text = "Check out this amazing Bansuri learning Course: ";
-            var whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text + url);
-            window.open(whatsappUrl, "_blank");
-    }
+     
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+        
     </script>
 </head>
 <body>
@@ -27,13 +25,19 @@
     <div class="container">
         <h2>A Warm Welcome to Your Bansuri Learning Journey!</h2>
         <p>Learn to play the Bansuri with our structured, beginner-friendly course.</p>
-        <button onclick="shareOnWhatsApp()" style="background-color: transparent; border: none; cursor: pointer;">
-            <table border="0" cellspacing="0" cellpadding="5" align="center">
-                <tr><td><strong>Share on WhatsApp</strong></td>
-                <td><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="40" height="40"></td></tr>
-            </table>
-                  
-        </button>
+        <!-- Include Font Awesome in the head of your HTML -->
+
+
+    <p>
+    <i class="fab fa-whatsapp" style="color: #25D366; margin-right: 6px;"></i>
+    Join WhatsApp Group:
+    <a href="https://chat.whatsapp.com/LOtTbM9JUFpKMpBD9WQJuF" target="_blank">
+        <strong>Play Bansuri</strong>
+    </a>
+    </p>
+    <p>📞 Interested? Contact: +91 9945994003</p>
+
+        
         <p>🎵 Course Details:</p>
         <p>✅ 24 classes (3 months)</p>
         <p>✅ One class per week + follow-up session</p>
@@ -57,7 +61,27 @@
         <div class="tab" onclick="showTab('scale')">Scale and Octaves</div>
         <div class="tab" onclick="showTab('singing')">Singing</div>
     </div>
-  
+    
+    <div id="way2go" class="tab-content description way2go">
+        <h2>Introduction to Course and Way to Go</h2>
+        <p>Watch this to learn elements that constitute Playing Bansuri</p>
+        <p> How your Bansuri Playing Journey will Go</p>
+        <p> Simplified Bansuri learning to baby steps, making it easy for anyone to start their musical journey. 🎶✨</p>
+        <p> All it takes is just 30 minutes of daily practice, and you’ll be amazed at your progress!<p>
+        <p> Let’s make learning fun, effortless, and rewarding together. 😊🎵</p>
+        
+        <table border="0" cellspacing="0" cellpadding="5" align="center">
+            <tr>
+            <td><iframe width="260" height="260" src="https://www.youtube.com/embed/bDXLF1IEo54?si=ejJJ9dRIhNZCzbPk" 
+                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+                gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>     </td>
+            <td><iframe width="260" height="260" src="https://www.youtube.com/embed/bDXLF1IEo54?si=ejJJ9dRIhNZCzbPk" 
+                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+                gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe></td></tr>
+            </table>
+         
+    </div>
+
     <div id="meditation" class="tab-content description meditation">
         <h2>Meditation for Learning the Bansuri</h2>
         <p>Meditation is essential for learning the <strong>Bansuri (Indian bamboo flute)</strong> </p>
@@ -244,30 +268,12 @@
             
     </div>
 
-    <div id="way2go" class="tab-content description way2go">
-        <h2>Introduction to Course and Way to Go</h2>
-        <p>Watch this to learn elements that constitute Playing Bansuri</p>
-        <p> How your Bansuri Playing Journey will Go</p>
-        <p> Simplified Bansuri learning to baby steps, making it easy for anyone to start their musical journey. 🎶✨</p>
-        <p> All it takes is just 30 minutes of daily practice, and you’ll be amazed at your progress!<p>
-        <p> Let’s make learning fun, effortless, and rewarding together. 😊🎵</p>
-        
-        <table border="0" cellspacing="0" cellpadding="5" align="center">
-            <tr>
-            <td><iframe width="260" height="260" src="https://www.youtube.com/embed/bDXLF1IEo54?si=ejJJ9dRIhNZCzbPk" 
-                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
-                gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>     </td>
-            <td><iframe width="260" height="260" src="https://www.youtube.com/embed/bDXLF1IEo54?si=ejJJ9dRIhNZCzbPk" 
-                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
-                gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe></td></tr>
-            </table>
-         
-    </div>
+    
     
 
     <footer>
-        <p>📞 Interested? Contact: +91 9945994003</p>
-        <p>📲 Join WhatsApp Group: <a href="https://chat.whatsapp.com/LOtTbM9JUFpKMpBD9WQJuF" target="_blank">Click Here</a></p>
+    <p>&copy; <span id="year"></span> <strong>Play Bansuri</strong>. All rights reserved.</p>
+       
     </footer>
 </body>
 </html>
