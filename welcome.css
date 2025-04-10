@@ -5,17 +5,20 @@
       background: url('bansuri-background.jpg') no-repeat center center/cover;
       background-color: #fffaf0; /* fallback ivory */
       color: #4b2e2e;
+      height: 100%;
+      padding: 0;
+      overflow-x: hidden; /* Hide any horizontal scroll */
     }
 
     .hero {
-      min-height: 40vh;
+      height: 60svh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: rgba(255, 255, 240, 0.85); /* ivory overlay */
+      background-color: rgba(255, 255, 240, 0.85);
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
       animation: fadeIn 2s ease-in-out;
     }
 
