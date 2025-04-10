@@ -11,7 +11,7 @@
     }
 
     .hero {
-      height: 60svh;
+      height: 100svh;
       display: flex;
       flex-direction: column;
       justify-content: center;
