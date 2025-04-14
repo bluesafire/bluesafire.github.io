@@ -1,0 +1,88 @@
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #1e1e2f;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 15px;
+  }
+
+  .circle-timer {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin-bottom: 30px;
+  }
+
+  .circle-timer svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .circle-timer .time {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.2rem;
+  }
+
+  .input-section {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  input[type="number"] {
+    padding: 10px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    border: none;
+    width: 100px;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    min-width: 100px;
+  }
+
+  .start { background: #28a745; color: white; }
+  .pause { background: #ffc107; color: black; }
+  .reset { background: #dc3545; color: white; }
+
+  @media (max-width: 480px) {
+    .circle-timer {
+      width: 200px;
+      height: 200px;
+    }
+    .circle-timer .time {
+      font-size: 1.8rem;
+    }
+
+    button {
+      font-size: 0.9rem;
+      padding: 8px 16px;
+    }
+
+    input[type="number"] {
+      width: 80px;
+      font-size: 1rem;
+    }
+  }
+
