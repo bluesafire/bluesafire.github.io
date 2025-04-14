@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bansuri Timer</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --accent-color: #4caf50; /* Green ring */
+      --ring-bg: #444;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      width: 260px;
+      height: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #timeInput {
+      font-size: 1.4rem;
+      padding: 10px;
+      width: 90%;
+      margin-bottom: 10px;
+      text-align: center;
+      background: #222;
+      color: var(--text-color);
+      border: 1px solid #333;
+      border-radius: 5px;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-left: 10px;
+    }
+
+    .buttons button {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border: none;
+      background: var(--accent-color);
+      color: #000;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .circle {
+      position: relative;
+      width: 140px;
+      height: 140px;
+    }
+
+    svg {
+      transform: rotate(-90deg);
+    }
+
+    .timeText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+
+    #progressCircle {
+      transition: stroke-dashoffset 1s linear;
+    }
+  </style>
+</head>
+<body>
+  <input type="number" id="timeInput" placeholder="Seconds" />
+
+  <div class="container">
+    <div class="buttons">
+      <button onclick="startSoundDetection()">🎵 Listen</button>
+    </div>
+
+    <div class="circle">
+      <svg width="140" height="140">
+        <circle cx="70" cy="70" r="60" stroke="var(--ring-bg)" stroke-width="10" fill="none" />
+        <circle id="progressCircle" cx="70" cy="70" r="60" stroke="var(--accent-color)" stroke-width="10" fill="none"
+                stroke-dasharray="377" stroke-dashoffset="0" />
+      </svg>
+      <div class="timeText" id="timerCircle">00</div>
+    </div>
+  </div>
+
+  <script>
+    let timer = null;
+    let totalSeconds = 0;
+    let remainingSeconds = 0;
+    let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    let analyserNode = audioContext.createAnalyser();
+    let dataArray, bufferLength;
+    let micActivated = false;
+
+    const circle = document.getElementById("progressCircle");
+    const text = document.getElementById("timerCircle");
+
+    function updateDisplay() {
+      text.textContent = remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
+      updateRing();
+    }
+
+    function updateRing() {
+      const circumference = 2 * Math.PI * 60;
+      const offset = circumference * (1 - remainingSeconds / totalSeconds);
+      circle.style.strokeDashoffset = offset;
+    }
+
+    function beginTimer() {
+      if (timer || remainingSeconds <= 0) return;
+
+      totalSeconds = remainingSeconds;
+      updateDisplay();
+
+      timer = setInterval(() => {
+        if (remainingSeconds > 0) {
+          remainingSeconds--;
+          updateDisplay();
+        } else {
+          clearInterval(timer);
+          timer = null;
+          
+        }
+      }, 1000);
+    }
+
+    function detectBansuriNote() {
+      if (!micActivated) return;
+
+      analyserNode.getByteFrequencyData(dataArray);
+
+      const lowerFreq = 250;
+      const upperFreq = 1000;
+      const sampleRate = audioContext.sampleRate;
+      const freqStep = sampleRate / analyserNode.fftSize;
+      let detected = false;
+
+      for (let i = 0; i < bufferLength; i++) {
+        const freq = i * freqStep;
+        if (freq >= lowerFreq && freq <= upperFreq && dataArray[i] > 160) {
+          detected = true;
+          break;
+        }
+      }
+
+      if (detected && remainingSeconds === 0 && !timer) {
+        const input = document.getElementById("timeInput");
+        remainingSeconds = parseInt(input.value) || 0;
+        totalSeconds = remainingSeconds;
+        updateDisplay();
+        beginTimer();
+      }
+
+      requestAnimationFrame(detectBansuriNote);
+    }
+
+    function startSoundDetection() {
+      if (micActivated) return;
+
+      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+        micActivated = true;
+        audioContext.resume();
+        const source = audioContext.createMediaStreamSource(stream);
+        source.connect(analyserNode);
+        analyserNode.fftSize = 256;
+        bufferLength = analyserNode.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+        detectBansuriNote();
+      }).catch((err) => {
+        alert("Microphone access denied.");
+      });
+    }
+
+    audioContext.suspend();
+  </script>
+</body>
+</html>
