@@ -6,21 +6,24 @@
   <title>Teen Taal 110 BPM</title>
   <style>
     body {
-      margin: 0;
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f9f9f9;
-    }
+    margin: 0;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    background: url('teen-taal.png') no-repeat center center;
+    background-size: cover;
+  }
+
 
     #audioTab {
       text-align: center;
       padding: 5vw;
-      max-width: 90%;
+      max-width: 100%;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      background: white;
+      background: rgba(255, 255, 255, 0.0);
       border-radius: 12px;
     }
 
@@ -32,13 +35,14 @@
     #playButton {
       padding: 3vw 6vw;
       font-size: 4vw;
-      background-color: #007bff;
+      background-color: green;
       color: white;
       border: none;
       border-radius: 2vw;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
+    
 
     #playButton:hover {
       background-color: #0056b3;
@@ -56,11 +60,28 @@
       }
     }
   </style>
+  <script>
+    const playButton = document.getElementById('playButton');
+    let isPlaying = false;
+  
+    playButton.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      playButton.textContent = isPlaying ? '⏹️' : '▶️';
+  
+      // Add your play/stop logic here
+      if (isPlaying) {
+        // Start audio or animation
+      } else {
+        // Stop audio or animation
+      }
+    });
+  </script>
+  
 </head>
 <body>
-
+  
   <div id="audioTab">
-    <h3>Teen Taal 110 BPM</h3>
+    
     <button id="playButton" onclick="toggleAudio()">Play</button>
     <audio id="myAudio" src="110-a-scale-teentaal.mp3"></audio>
   </div>
