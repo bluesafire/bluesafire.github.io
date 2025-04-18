@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bansuri Companion - A Scale</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      font-family: sans-serif;
+    }
+    canvas {
+      background: #222;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      background-color: #00ffcc;
+      color: #000;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+    #note, #sequence {
+      font-size: 1.3em;
+      margin: 10px 0;
+      color: #00ffcc;
+    }
+  </style>
+</head>
+<body>
+  <h2>Bansuri Companion - A Scale</h2>
+  <button onclick="start()">🎙 Start Mic</button>
+  <button id="recordBtn" onclick="toggleRecording()" disabled>⏺ Record</button>
+  <button id="playBtn" onclick="playRecording()" disabled>▶️ Play</button>
+  <button id="downloadBtn" onclick="downloadRecording()" disabled>💾 Download</button>
+
+  <canvas id="waveform" width="800" height="150"></canvas>
+  <canvas id="pitchGraph" width="800" height="150"></canvas>
+
+  <div id="note">Note: —</div>
+  <div id="sequence">Sequence: </div>
+
+  <script>
+    const waveformCanvas = document.getElementById('waveform');
+    const pitchCanvas = document.getElementById('pitchGraph');
+    const noteDisplay = document.getElementById('note');
+    const sequenceDisplay = document.getElementById('sequence');
+    const ctxWaveform = waveformCanvas.getContext('2d');
+    const ctxPitch = pitchCanvas.getContext('2d');
+    let noteSequence = [];
+
+    const recordBtn = document.getElementById('recordBtn');
+    const playBtn = document.getElementById('playBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let audioCtx, analyser, dataArray, bufferLength;
+    let mediaRecorder, recordedChunks = [], audioBlob, playbackAudio;
+    let pitchHistory = [];
+
+    async function start() {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const source = audioCtx.createMediaStreamSource(stream);
+
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 2048;
+      bufferLength = analyser.fftSize;
+      dataArray = new Float32Array(bufferLength);
+      source.connect(analyser);
+
+      draw();
+      recordBtn.disabled = false;
+
+      // Recorder setup
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = (e) => recordedChunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        audioBlob = new Blob(recordedChunks, { type: 'audio/webm' });
+        playbackAudio = new Audio(URL.createObjectURL(audioBlob));
+        playBtn.disabled = false;
+        downloadBtn.disabled = false;
+      };
+    }
+
+    function draw() {
+      requestAnimationFrame(draw);
+      analyser.getFloatTimeDomainData(dataArray);
+
+      // Draw waveform
+      ctxWaveform.clearRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+      ctxWaveform.beginPath();
+      ctxWaveform.lineWidth = 2;
+      ctxWaveform.strokeStyle = '#00ffcc';
+      const sliceWidth = waveformCanvas.width / bufferLength;
+      let x = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        const v = dataArray[i] * 0.5 + 0.5;
+        const y = v * waveformCanvas.height;
+        if (i === 0) ctxWaveform.moveTo(x, y);
+        else ctxWaveform.lineTo(x, y);
+        x += sliceWidth;
+      }
+      ctxWaveform.stroke();
+
+      const freq = detectPitch(dataArray, audioCtx.sampleRate);
+      if (freq) {
+        const note = frequencyToNote(freq);
+        noteDisplay.innerText = `Note: ${note} (${freq.toFixed(1)} Hz)`;
+        if (note !== noteSequence[noteSequence.length - 1]) {
+          noteSequence.push(note);
+          sequenceDisplay.innerText = "Sequence: " + noteSequence.join(" - ");
+        }
+
+        // Update pitch graph
+        pitchHistory.push(freq);
+        if (pitchHistory.length > pitchCanvas.width) pitchHistory.shift();
+        drawPitchGraph();
+      }
+    }
+
+    function drawPitchGraph() {
+      ctxPitch.clearRect(0, 0, pitchCanvas.width, pitchCanvas.height);
+      ctxPitch.beginPath();
+      ctxPitch.strokeStyle = "#ff69b4";
+      ctxPitch.lineWidth = 1;
+
+      pitchHistory.forEach((f, i) => {
+        const y = pitchCanvas.height - (Math.log(f) - Math.log(100)) * 50;
+        if (i === 0) ctxPitch.moveTo(i, y);
+        else ctxPitch.lineTo(i, y);
+      });
+
+      ctxPitch.stroke();
+    }
+
+    function detectPitch(buffer, sampleRate) {
+      const SIZE = buffer.length;
+      let rms = 0;
+      for (let i = 0; i < SIZE; i++) rms += buffer[i] * buffer[i];
+      rms = Math.sqrt(rms / SIZE);
+      if (rms < 0.01) return null;
+
+      let r1 = 0, r2 = SIZE - 1, threshold = 0.2;
+      for (let i = 0; i < SIZE / 2; i++) if (Math.abs(buffer[i]) < threshold) { r1 = i; break; }
+      for (let i = 1; i < SIZE / 2; i++) if (Math.abs(buffer[SIZE - i]) < threshold) { r2 = SIZE - i; break; }
+      buffer = buffer.slice(r1, r2);
+      const newSize = buffer.length;
+      const c = new Array(newSize).fill(0);
+      for (let i = 0; i < newSize; i++) {
+        for (let j = 0; j < newSize - i; j++) {
+          c[i] += buffer[j] * buffer[j + i];
+        }
+      }
+
+      let d = 0;
+      while (c[d] > c[d + 1]) d++;
+      let maxval = -1, maxpos = -1;
+      for (let i = d; i < newSize; i++) {
+        if (c[i] > maxval) {
+          maxval = c[i];
+          maxpos = i;
+        }
+      }
+
+      const T0 = maxpos;
+      return sampleRate / T0;
+    }
+
+    const noteFrequencies = [
+      { note: "Sa", freq: 440.00 },   // A4
+      { note: "Re", freq: 493.88 },   // B4
+      { note: "Ga", freq: 554.37 },   // C#5
+      { note: "Ma", freq: 587.33 },   // D5
+      { note: "Pa", freq: 659.25 },   // E5
+      { note: "Dha", freq: 739.99 },  // F#5
+      { note: "Ni", freq: 830.61 },   // G#5
+      { note: "Sa′", freq: 880.00 },  // A5
+    ];
+
+    function frequencyToNote(freq) {
+      let closest = noteFrequencies[0];
+      let minDiff = Math.abs(freq - closest.freq);
+      for (let i = 1; i < noteFrequencies.length; i++) {
+        const diff = Math.abs(freq - noteFrequencies[i].freq);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closest = noteFrequencies[i];
+        }
+      }
+      return closest.note;
+    }
+
+    let isRecording = false;
+    function toggleRecording() {
+      if (!mediaRecorder) return;
+      if (!isRecording) {
+        recordedChunks = [];
+        mediaRecorder.start();
+        recordBtn.innerText = "⏹ Stop";
+        playBtn.disabled = true;
+        downloadBtn.disabled = true;
+        noteSequence = [];
+        sequenceDisplay.innerText = "Sequence: ";
+      } else {
+        mediaRecorder.stop();
+        recordBtn.innerText = "⏺ Record";
+      }
+      isRecording = !isRecording;
+    }
+
+    function playRecording() {
+      if (playbackAudio) {
+        playbackAudio.play();
+      }
+    }
+
+    function downloadRecording() {
+      const url = URL.createObjectURL(audioBlob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "bansuri_recording.webm";
+      a.click();
+    }
+  </script>
+  <table border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+    <iframe width="600" height="315" src="sound-enabled-timer.html" frameborder="0" allow="accelerometer; 
+    autoplay; clipboard-write; encrypted-media; gyroscope;picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </tr>
+    <tr>
+    <iframe width="600" height="315" src="timer.html" frameborder="0" allow="accelerometer; autoplay; 
+    clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </tr>
+    
+</table>
+</body>
+</html>
+
+
+
+
+
+
