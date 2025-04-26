@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bansuri Class Exercises</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fffbe6;
+      color: #333;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #00796b;
+    }
+    .class {
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      background: #f9f9f9;
+    }
+    summary {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #d84315;
+      cursor: pointer;
+    }
+    button {
+      background-color: #00796b;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #004d40;
+    }
+    .thanks {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎶 Bansuri Class Exercises 🎶</h1>
+
+<div class="class">
+  <details>
+    <summary>Class 2/24 – Sa Re Ga</summary>
+    <p>✅ How to hold the Bansuri<br>
+    ✅ Blowing pressure & soft blowing technique<br>
+    ✅ Singing & playing the first three notes – Sa, Re, Ga</p>
+
+    <p><strong>Practice:</strong></p>
+    <ul>
+      <li>🧘‍♂️ 5 min meditation</li>
+      <li>Blowing pressure: Soft & steady (5 min)</li>
+      <li>Singing notes: Sa, Re, Ga (10 min)</li>
+      <li>Playing each note separately (10 times each)</li>
+      <li>Playing Sa Re Ga smoothly (10 min)</li>
+    </ul>
+    <button onclick="rateClass(this)">Rate this Class</button>
+    <p class="thanks" hidden>Thank you for rating!</p>
+  </details>
+</div>
+
+<div class="class">
+  <details>
+    <summary>Class 3/24 – Sa Re Ga Ma</summary>
+    <p>✅ Singing & playing four notes – Sa, Re, Ga, Ma</p>
+
+    <p><strong>Practice Plan:</strong></p>
+    <ul>
+      <li>🧘‍♂️ 5 min meditation</li>
+      <li>Singing (10x each + phrases in reverse)</li>
+      <li>Playing individual notes and phrases</li>
+      <li>Line Practice (Sing & Play 5x):
+        <ul>
+          <li>Sa</li>
+          <li>Sa Re Sa</li>
+          <li>Sa Re Ga Re Sa</li>
+          <li>Sa Re Ga Ma Ga Re Sa</li>
+        </ul>
+      </li>
+    </ul>
+    <button onclick="rateClass(this)">Rate this Class</button>
+    <p class="thanks" hidden>Thank you for rating!</p>
+  </details>
+</div>
+
+<div class="class">
+  <details>
+    <summary>Class 4/24 – Skip & Range Alankara</summary>
+    <p>✅ 5-sec blowing pressure practice<br>
+    ✅ Playing Skip & Range Alankara</p>
+
+    <ul>
+      <li>🧘‍♂️ 5 min meditation</li>
+      <li>Sing + Play Skip Alankaras (Sa Ga Re Ma …)</li>
+      <li>Range Alankara: Sa–Re, Sa–-Ga, Sa–––Ma</li>
+      <li>💡 Keep blowing steady, adjust pitch by covering holes</li>
+    </ul>
+    <button onclick="rateClass(this)">Rate this Class</button>
+    <p class="thanks" hidden>Thank you for rating!</p>
+  </details>
+</div>
+
+<div class="class">
+  <details>
+    <summary>Class 5/24 – Movie Tune + Teen Taal</summary>
+    <p>✅ Movie tune practice<br>
+    ✅ Rhythm/Taal & Teen Taal beat awareness</p>
+
+    <ul>
+      <li>🧘‍♂️ 5 min meditation</li>
+      <li>🎵 Listen: "Geet Pahle Bana Tha Ya"</li>
+      <li>Sing: Sa Re Ga Ma … Ma Sa Re Ga</li>
+      <li>Sing: Ga Sa Re Ma … Ma Ga Re Sa</li>
+      <li>Play in 4-note groups with 5s gap</li>
+      <li>Listen to Teen Taal on website & identify 13th(Tte) + 1st beat (Dha</li>
+    </ul>
+    <button onclick="rateClass(this)">Rate this Class</button>
+    <p class="thanks" hidden>Thank you for rating!</p>
+  </details>
+</div>
+
+<p>🌐 Visit <a href="https://playbansuri.com" target="_blank">PlayBansuri.com</a> for more.</p>
+
+<script>
+  function rateClass(btn) {
+    btn.style.display = "none";
+    const thanks = btn.nextElementSibling;
+    thanks.hidden = false;
+  }
+</script>
+
+</body>
+</html>
